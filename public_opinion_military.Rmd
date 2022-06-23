@@ -1,6 +1,5 @@
 ---
-title: Examining the relationship of public opinion on political parties and military
-  governments
+title: Examining the relationship of public opinion on political parties and military governments
 author: "Raquel Baeta"
 date: '2022-05-12'
 output:
@@ -27,11 +26,13 @@ names(bfo) <- tolower(names(bfo))
 names(bfo) # check the columns are lower case
 ```
 
-***
+####
+####
+# Concepts and Measurement 
+####
+####
 
-#### Concepts and Measurement 
-
-##### Burkina Faso
+# Burkina Faso
 
 q27b: There are many ways to govern a country. Would you disapprove or approve of the following alternatives: The army comes in to govern the country?
 
@@ -85,9 +86,7 @@ bfo.q27b.plot2 <- plot(bfo$q27b.rc,
         ylab="Number of respondents")
 ```
 
-***
- 
-##### Variable 2: Gender 
+# Variable 2: Gender 
 
 ```{r table_gender_bfo, include=FALSE}
 # respondent's gender 
@@ -113,11 +112,9 @@ bfo.q27b.plot3 <- plot(bfo$gender,
                        ylab="Number of respondents")
 ```
 
-***
+# Bivariate analysis for Burkina Faso
 
-#### Bivariate analysis for Burkina Faso
-
-Un-coded bivariate analysis 
+# Un-coded bivariate analysis 
 
 ```{r uncoded_proportion_table_bfo, include=FALSE}
 # proportions table
@@ -169,10 +166,7 @@ bfo.mosaic <- mosaicplot(t(bfo.twoway.tab),
 chisq.test(bfo.q27b.tab)
 ```
 
-
-***
-
-Burkina Fasore: coded bivariate analysis 
+# Burkina Fasore: coded bivariate analysis 
 
 ```{r coded_proportion_table_bfo, include=FALSE}
 bfo.q27b.tab1 <- table(bfo$q27b.rc) # assign table
@@ -216,9 +210,7 @@ bfo.mosaic1 <- mosaicplot(t(bfo.twoway.tab1),
 chisq.test(bfo.q27b.tab1)
 ```
 
-***
-
-proportions of means 
+# Proportions of means 
 
 ```{r recode_proportion_of_means_bfo, include=FALSE}
 # re-coded for calculations
@@ -253,9 +245,11 @@ bfo.lm.out <- lm(bfo$q27b.rc ~ bfo$gender, data=bfo)
 bfo.lm.out
 ```
 
-***
-
-#### Comparative Analysis 
+####
+####
+# Comparative Analysis 
+####
+####
 
 ```{r load_data_set_bot, include=FALSE}
 # loading data set
@@ -268,7 +262,7 @@ names(bot) <- tolower(names(bot))
 names(bot) # check the columns are lower case
 ```
 
-##### Botswana
+# Botswana
 
 q27b: There are many ways to govern a country. Would you disapprove or approve of the following alternatives: The army comes in to govern the country?
 
@@ -322,9 +316,7 @@ bot.q27b1.plot1 <- plot(bot$q27b.rc,
                    ylab="Number of respondents")
 ```
 
-***
- 
-##### Variable 2: Gender 
+# Variable 2: Gender 
 
 ```{r table_gender_bot, include=FALSE}
 # respondent's gender 
@@ -350,11 +342,9 @@ bot.q27b1 <- plot(bot$gender,
                   ylab="Number of respondents")
 ```
 
-***
+# Bivariate analysis for Botswana
 
-#### Bivariate analysis for Botswana
-
-Un-coded bivariate analysis 
+# Un-coded bivariate analysis 
 
 ```{r uncoded_proportion_table_bot, include=FALSE}
 # proportions table
@@ -406,9 +396,7 @@ bot.mosaic <- mosaicplot(t(bot.twoway.tab),
 chisq.test(bot.q27b.tab)
 ```
 
-***
-
-Botswana: re-coded bivariate analysis 
+# Botswana: re-coded bivariate analysis 
 
 ```{r coded_proportion_table_bot, include=FALSE}
 bot.q27b.tab1 <- table(bot$q27b.rc) # assign table
@@ -452,9 +440,7 @@ bot.mosaic1 <- mosaicplot(t(bot.twoway.tab1),
 chisq.test(bot.q27b.tab1)
 ```
 
-***
-
-Botswana: proportions of means 
+# Botswana: proportions of means 
 
 ```{r recode_proportion_of_means_bot, include=FALSE}
 # re-coded for calculations
