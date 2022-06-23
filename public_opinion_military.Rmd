@@ -1,0 +1,492 @@
+---
+title: Examining the relationship of public opinion on political parties and military
+  governments
+author: "Raquel Baeta"
+date: '2022-05-12'
+output:
+  word_document: default
+  html_document: default
+subtitle: Research Report 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r packages_haven, include=FALSE}
+library(haven) # packages
+```
+
+```{r load_data_set_bfo, include=FALSE}
+# loading data set
+bfo <- read_spss("bfo_r7_data_eng.sav")  # a tibble
+```
+
+```{r column_names_bfo, include=FALSE}
+names(bfo)  # the column names
+names(bfo) <- tolower(names(bfo))
+names(bfo) # check the columns are lower case
+```
+
+***
+
+#### Concepts and Measurement 
+
+##### Burkina Faso
+
+q27b: There are many ways to govern a country. Would you disapprove or approve of the following alternatives: The army comes in to govern the country?
+
+```{r table_q27b_bfo, include=FALSE}
+table(bfo$q27b)  # the values from the questionnaire
+table(as_factor(bfo$q27b)) # shows labels
+```
+
+```{r uncoded_lables_q27b_bfo, include=FALSE}
+# un-coded levels for q27a
+bfo.q27b.labels <- c("strongly disapprove", 
+                     "dispprove",
+                     "neutral",
+                     "approve", 
+                     "strongly approve",
+                     "don't know")
+```
+
+```{r uncoded_factor_bfo, include=FALSE}
+bfo$q27b.f <- factor(bfo$q27b,
+                   levels=c(1:5, 9),
+                   labels=bfo.q27b.labels)
+```
+
+```{r view_uncoded_bfo, include=FALSE}
+# view un-coded responses
+table(bfo$q27b.f)
+```
+
+```{r plot_uncoded_q27b_bfo, include=TRUE}
+# plot un-coded variable
+bfo.q27b.plot1 <- plot(bfo$q27b.f, 
+ main="Burkina Faso: Opinions on military government", 
+ ylab="Number of respondents")
+```
+
+```{r coded_q27b_bfo, include=FALSE}
+# re-coding labels 
+bfo$q27b.rc <- factor(bfo$q27b)
+levels(bfo$q27b.rc) <- list("disapprove" = c(1, 2),
+                            "approve" = c(4, 5))
+
+table(bfo$q27b.rc) # check
+```
+
+```{r plot_coded_q27b_bfo, include=TRUE}
+# plotting re-coded data
+bfo.q27b.plot2 <- plot(bfo$q27b.rc, 
+  main="Burkina Faso: Opinions on military 
+        government (recoded)", 
+        ylab="Number of respondents")
+```
+
+***
+ 
+##### Variable 2: Gender 
+
+```{r table_gender_bfo, include=FALSE}
+# respondent's gender 
+table(bfo$thisint)  # the values from the questionnaire
+```
+
+```{r uncoded_gender_bfo, include=FALSE}
+# un-coded answered for gender
+bfo.gender.labels <- c("male", "female")
+bfo$gender <- factor(bfo$thisint,
+                    levels=1:2,
+                    labels=bfo.gender.labels)
+```
+
+```{r checking_lables_gender_bfo, include=FALSE}
+# view un-coded answers
+table(bfo$gender) # shows labels
+```
+
+```{r plot_gender, include=TRUE}
+bfo.q27b.plot3 <- plot(bfo$gender, 
+                       main="Overview of gender in Burkina Faso", 
+                       ylab="Number of respondents")
+```
+
+***
+
+#### Bivariate analysis for Burkina Faso
+
+Un-coded bivariate analysis 
+
+```{r uncoded_proportion_table_bfo, include=FALSE}
+# proportions table
+bfo.q27b.tab <- table(bfo$q27b.f) # assign table
+proportions(bfo.q27b.tab) # relative frequencies
+```
+
+```{r uncoded_percentage_freq_bfo, include=FALSE}
+# percentage frequencies 
+proportions(bfo.q27b.tab) * 100 # percentage frequencies
+```
+
+```{r uncoded_rounded_percentage_bfo, include=FALSE}
+# rounding percentages 
+round(proportions(bfo.q27b.tab) * 100, digits=0)
+```
+
+```{r uncoded_contigency_table_bfo, include=TRUE}
+# contingency table 
+table(bfo$q27b.f, bfo$gender)
+```
+
+```{r uncoded_marginal_total_bfo, include=FALSE}
+# marginal totals
+addmargins(table(bfo$q27b.f, bfo$gender))
+```
+
+```{r uncoded_proportions_margintotal_bfo, include=FALSE}
+# proportions and margin totals
+proportions(table(bfo$q27b.f, bfo$gender), margin=2)
+```
+
+```{r uncoded_percentage_mosaicplot_bfo, include=FALSE}
+# creating percentages for mosaic plot 
+bfo.twoway.tab <- table(bfo$q27b.f, bfo$gender) |>
+                  proportions(margin=2) |>
+                  round(digits=2)
+```
+
+```{r uncoded_mosaicplot_bfo, include=TRUE}
+# mosaic plot 
+bfo.mosaic <- mosaicplot(t(bfo.twoway.tab),
+              main="Burkina Faso: Opinions towards military 
+                    government, by gender", 
+              las=1,)
+```
+
+```{r uncoded_chisqtest_bfo, include=FALSE}
+chisq.test(bfo.q27b.tab)
+```
+
+
+***
+
+Burkina Fasore: coded bivariate analysis 
+
+```{r coded_proportion_table_bfo, include=FALSE}
+bfo.q27b.tab1 <- table(bfo$q27b.rc) # assign table
+proportions(bfo.q27b.tab1) # relative frequencies
+```
+
+```{r coded_percentage_freq_bfo, include=FALSE}
+proportions(bfo.q27b.tab1) * 100 # percentage frequencies
+```
+
+```{r coded_rounded_percentage_bfo, include=FALSE}
+round(proportions(bfo.q27b.tab1) * 100, digits=0)
+```
+
+```{r coded_contigency_table_bfo, include=TRUE}
+table(bfo$q27b.rc, bfo$gender)
+```
+
+```{r coded_margintotal_bfo, include=FALSE}
+addmargins(table(bfo$q27b.rc, bfo$gender))
+```
+
+```{r coded_proportions_margintotal_bfo, include=FALSE}
+proportions(table(bfo$q27b.rc, bfo$gender), margin=2)
+```
+
+```{r coded_percentage_mosaicplot_bfo, include=FALSE}
+bfo.twoway.tab1 <- table(bfo$q27b.rc, bfo$gender) |>
+                        proportions(margin=2) |>
+                        round(digits=2)
+```
+
+```{r coded_mosaicplot_bfo, include=TRUE}
+bfo.mosaic1 <- mosaicplot(t(bfo.twoway.tab1),
+           main="Burkina Faso: Opinions towards military 
+           government, by gender (recoded)", 
+           las=1)
+```
+
+```{r coded_chisqtest_bto, include=FALSE}
+chisq.test(bfo.q27b.tab1)
+```
+
+***
+
+proportions of means 
+
+```{r recode_proportion_of_means_bfo, include=FALSE}
+# re-coded for calculations
+bfo$bad <- vector(length=1200)
+bfo$bad[bfo$q27b %in% 1:2] <- 1 # disapprove
+bfo$bad[bfo$q27b %in% 3:5] <- 2 # don't disapprove
+bfo$bad[bfo$q27b == 9] <- NA # exclude "don't know"
+bfo.bad.labs <- c("disapprove", "don't disapprove")
+bfo$bad.f <- factor(bfo$bad, levels=1:2,
+                     labels=bfo.bad.labs)
+```
+
+```{r table_column_proportions_bfo, include=TRUE}
+# column props
+bfo.tab <- table(bfo$bad.f, bfo$gender)
+proportions(bfo.tab, margin=2)
+```
+
+```{r proportion_difference_bfo, include=TRUE}
+# proportion difference (d)
+bfo.prop.tab <- proportions(bfo.tab, margin=2)
+bfo.d <- bfo.prop.tab[1, 1] - bfo.prop.tab[1, 2]
+bfo.d
+```
+
+```{r 90_confidence_interval_bfo, include=TRUE}
+prop.test(bfo.tab, conf.level=0.90)
+```
+
+```{r linearregression_bfo, include=FALSE}
+bfo.lm.out <- lm(bfo$q27b.rc ~ bfo$gender, data=bfo)
+bfo.lm.out
+```
+
+***
+
+#### Comparative Analysis 
+
+```{r load_data_set_bot, include=FALSE}
+# loading data set
+bot <- read_spss("bot_r7_data_eng.sav")  # a tibble
+```
+
+```{r column_names_bot, include=FALSE}
+names(bot)  # the column names
+names(bot) <- tolower(names(bot))
+names(bot) # check the columns are lower case
+```
+
+##### Botswana
+
+q27b: There are many ways to govern a country. Would you disapprove or approve of the following alternatives: The army comes in to govern the country?
+
+```{r table_q27b_bot, include=FALSE}
+table(bot$q27b)  # the values from the questionnaire
+table(as_factor(bot$q27b)) # shows labels
+```
+
+```{r uncoded_lables_q27b_bot, include=FALSE}
+# un-coded levels for q27a
+bot.q27b.labels <- c("strongly disapprove", 
+                     "dispprove",
+                     "neutral",
+                     "approve", 
+                     "strongly approve",
+                     "don't know")
+```
+
+```{r uncoded_factor_bot, include=FALSE}
+bot$q27b.f <- factor(bot$q27b,
+                   levels=c(1:5, 9),
+                   labels=bot.q27b.labels)
+```
+
+```{r view_uncoded_bot, include=FALSE}
+# view un-coded responses
+table(bot$q27b.f)
+```
+
+```{r plot_uncoded_q27b_bot, include=TRUE}
+# plot un-coded variable
+bot.q27b.plot <- plot(bot$q27b.f, 
+                 main="Botswana: Opinions on military government", 
+                 ylab="Number of respondents")
+```
+
+```{r coded_q27b_bot, include=FALSE}
+# re-coding labels 
+bot$q27b.rc <- factor(bot$q27b)
+levels(bot$q27b.rc) <- list("disapprove" = c(1, 2),
+                            "approve" = c(4, 5))
+
+table(bot$q27b.rc) # check
+```
+
+```{r plot_coded_q27b_bot, include=TRUE}
+# plotting re-coded data
+bot.q27b1.plot1 <- plot(bot$q27b.rc, 
+                   main="Botswana: Opinions on military government 
+                   (recoded)", 
+                   ylab="Number of respondents")
+```
+
+***
+ 
+##### Variable 2: Gender 
+
+```{r table_gender_bot, include=FALSE}
+# respondent's gender 
+table(bot$thisint)  # the values from the questionnaire
+```
+
+```{r uncoded_gender_bot, include=FALSE}
+# un-coded answered for gender
+bot.gender.labels <- c("male", "female")
+bot$gender <- factor(bot$thisint,
+                    levels=1:2,
+                    labels=bot.gender.labels)
+```
+
+```{r checking_lables_gender_bot, include=FALSE}
+# view un-coded answers
+table(bot$gender) # shows labels
+```
+
+```{r plot_gender_bot, include=TRUE}
+bot.q27b1 <- plot(bot$gender, 
+                  main="Overview of gender in Botswana", 
+                  ylab="Number of respondents")
+```
+
+***
+
+#### Bivariate analysis for Botswana
+
+Un-coded bivariate analysis 
+
+```{r uncoded_proportion_table_bot, include=FALSE}
+# proportions table
+bot.q27b.tab <- table(bot$q27b.f) # assign table
+proportions(bot.q27b.tab) # relative frequencies
+```
+
+```{r uncoded_percentage_freq_bot, include=FALSE}
+# percentage frequencies 
+proportions(bot.q27b.tab) * 100 # percentage frequencies
+```
+
+```{r uncoded_rounded_percentage_bot, include=FALSE}
+# rounding percentages 
+round(proportions(bot.q27b.tab) * 100, digits=0)
+```
+
+```{r uncoded_contigency_table_bot, include=TRUE}
+# contingency table 
+table(bot$q27b.f, bot$gender)
+```
+
+```{r uncoded_marginal_total_bot, include=FALSE}
+# marginal totals
+addmargins(table(bot$q27b.f, bot$gender))
+```
+
+```{r uncoded_proportions_margintotal_bot, include=FALSE}
+# proportions and margin totals
+proportions(table(bot$q27b.f, bot$gender), margin=2)
+```
+
+```{r uncoded_percentage_mosaicplot_bot, include=FALSE}
+# creating percentages for mosaic plot 
+bot.twoway.tab <- table(bot$q27b.f, bot$gender) |>
+                        proportions(margin=2) |>
+                        round(digits=2)
+```
+
+```{r uncoded_mosaicplot_bot, include=TRUE}
+# mosaic plot 
+bot.mosaic <- mosaicplot(t(bot.twoway.tab),
+              main="Botswana: Opinions towards military 
+                    government, by gender", 
+              las=1)
+```
+
+```{r uncoded_chisqtest_bot, include=FALSE}
+chisq.test(bot.q27b.tab)
+```
+
+***
+
+Botswana: re-coded bivariate analysis 
+
+```{r coded_proportion_table_bot, include=FALSE}
+bot.q27b.tab1 <- table(bot$q27b.rc) # assign table
+proportions(bot.q27b.tab1) # relative frequencies
+```
+
+```{r coded_percentage_freq_bot, include=FALSE}
+proportions(bot.q27b.tab1) * 100 # percentage frequencies
+```
+
+```{r coded_rounded_percentage_bot, include=FALSE}
+round(proportions(bot.q27b.tab1) * 100, digits=0)
+```
+
+```{r coded_contigency_table_bot, include=TRUE}
+table(bot$q27b.rc, bot$gender)
+```
+
+```{r coded_margintotal_bot, include=FALSE}
+addmargins(table(bot$q27b.rc, bot$gender))
+```
+
+```{r coded_proportions_margintotal_bot, include=FALSE}
+proportions(table(bot$q27b.rc, bot$gender), margin=2)
+```
+
+```{r coded_percentage_mosaicplot_bot, include=FALSE}
+bot.twoway.tab1 <- table(bot$q27b.rc, bot$gender) |>
+                   proportions(margin=2) |>
+                   round(digits=2)
+```
+
+```{r coded_mosaicplot_bot, include=TRUE}
+bot.mosaic1 <- mosaicplot(t(bot.twoway.tab1),
+           main="Botswana: Opinions towards military government, 
+           by gender (recoded)", 
+           las=1)
+```
+
+```{r coded_chisqtest_bot, include=FALSE}
+chisq.test(bot.q27b.tab1)
+```
+
+***
+
+Botswana: proportions of means 
+
+```{r recode_proportion_of_means_bot, include=FALSE}
+# re-coded for calculations
+bot$bad <- vector(length=1198)
+bot$bad[bot$q27b %in% 1:2] <- 1 # disapprove
+bot$bad[bot$q27b %in% 3:5] <- 2 # don't disapprove
+bot$bad[bot$q27b == 9] <- NA # exclude "don't know"
+bot.bad.labs <- c("disapprove", "don't disapprove")
+bot$bad.f <- factor(bot$bad, levels=1:2,
+                     labels=bot.bad.labs)
+```
+
+```{r table_column_proportions_bot, include=TRUE}
+# column props
+bot.tab <- table(bot$bad.f, bot$gender)
+proportions(bot.tab, margin=2)
+```
+
+```{r proportion_difference_bot, include=TRUE}
+# proportion difference (d)
+bot.prop.tab <- proportions(bot.tab, margin=2)
+bot.d <- bot.prop.tab[1, 1] - bot.prop.tab[1, 2]
+bot.d
+```
+
+```{r 90_confidence_interval_bot, include=TRUE}
+prop.test(bot.tab, conf.level=0.90)
+```
+
+```{r linearregression_bot, include=FALSE}
+bot.lm.out <- lm(bot$q27b.rc ~ bot$gender, data=bot)
+bot.lm.out
+```
+
