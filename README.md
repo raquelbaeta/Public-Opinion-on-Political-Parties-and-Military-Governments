@@ -38,7 +38,7 @@ install.packages(c("haven", "dplyr", "tidyr", "ggplot2", "mosaic", "readr", "kni
 
 ### Load the required packages:
 
-library(c(haven, dplyr, tidyr, ggplot2, mosaic, readr, knitr, kableExtra)
+library(c(haven, dplyr, tidyr, ggplot2, mosaic, readr, knitr, kableExtra))
 
 The script generates several tables and plots to visualise and analyse the data. The main findings are presented in the "Comparative Analysis" section, which summarises the results for both countries.
 
