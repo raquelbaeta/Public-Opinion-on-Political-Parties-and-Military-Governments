@@ -1,24 +1,26 @@
 ###
-# Examining Public Opinion on Military Governments in Burkina Faso and Botswana
+## Examining Public Opinion on Military Governments in Burkina Faso and Botswana
 ##
 
-# Overview
+### Overview
 
 This script performs an exploratory data analysis on public opinion regarding military governments in Burkina Faso and Botswana. The analysis is based on survey data, and it examines the relationship between respondents' opinions and their gender. The script covers data cleaning, recoding, visualization, bivariate analysis, and linear regression.
 
-# Requirements
+### Requirements
 
 To run this script, you'll need the following:
+
 R packages: haven, dplyr, tidyr, ggplot2, mosaic, readr, knitr, kableExtra
 
-# Data Sets
+### Data Sets
+
 The script uses two data sets:
 
 bfo_r7_data_eng.sav: Burkina Faso survey data (SPSS format)
 bot_r7_data_eng.sav: Botswana survey data (SPSS format)
 Both data sets should be saved in the same directory as the script.
 
-# Script Structure
+### Script Structure
 
 The script is divided into several sections:
 
@@ -30,10 +32,11 @@ The script is divided into several sections:
 6. Comparative Analysis: Compares the results of the analyses for Burkina Faso and Botswana.
 7. Usage
 
-# Install the required packages:
+### Install the required packages:
+
 install.packages(c("haven", "dplyr", "tidyr", "ggplot2", "mosaic", "readr", "knitr", "kableExtra"))
 
-# Load the required packages:
+### Load the required packages:
 library(haven)
 library(dplyr)
 library(tidyr)
@@ -45,10 +48,12 @@ library(kableExtra)
 
 The script generates several tables and plots to visualize and analyze the data. The main findings are presented in the "Comparative Analysis" section, which summarizes the results for both countries.
 
-# Contributing
+### Contributing
+
 Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
 
-# Contact
+### Contact
+
 For any questions or inquiries, please contact Raquel at raquelcbaeta.sa@gmail.com.
 
 Last Updated: 2023-03-19
