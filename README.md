@@ -4,7 +4,7 @@
 
 ### Overview
 
-This script performs an exploratory data analysis on public opinion regarding military governments in Burkina Faso and Botswana. The analysis is based on survey data, and it examines the relationship between respondents' opinions and their gender. The script covers data cleaning, recoding, visualization, bivariate analysis, and linear regression.
+This script performs an exploratory data analysis on public opinion regarding military governments in Burkina Faso and Botswana. The analysis is based on survey data, and it examines the relationship between respondents' opinions and their gender. The script covers data cleaning, recoding, visualisation, bivariate analysis, and linear regression.
 
 ### Requirements
 
@@ -37,16 +37,10 @@ The script is divided into several sections:
 install.packages(c("haven", "dplyr", "tidyr", "ggplot2", "mosaic", "readr", "knitr", "kableExtra"))
 
 ### Load the required packages:
-library(haven)
-library(dplyr)
-library(tidyr)
-library(ggplot2)
-library(mosaic)
-library(readr)
-library(knitr)
-library(kableExtra)
 
-The script generates several tables and plots to visualize and analyze the data. The main findings are presented in the "Comparative Analysis" section, which summarizes the results for both countries.
+library(c(haven, dplyr, tidyr, ggplot2, mosaic, readr, knitr, kableExtra)
+
+The script generates several tables and plots to visualise and analyse the data. The main findings are presented in the "Comparative Analysis" section, which summarises the results for both countries.
 
 ### Contributing
 
